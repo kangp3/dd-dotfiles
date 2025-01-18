@@ -1,11 +1,13 @@
 [user]
 	email = peter.kang@datadoghq.com
 	name = Peter Kang
+
 [url "git@github.com:"]
 	insteadOf = https://github.com/
 	insteadOf = git://github.com/
 [core]
 	hooksPath = /usr/local/dd/global_hooks
+	editor = nvim
 [include]
 	path = /Users/peter.kang/.config/gitsign/gitconfig
 [alias]
