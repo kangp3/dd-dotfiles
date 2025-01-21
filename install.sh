@@ -23,6 +23,16 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux64.tar.gz
 
+# Install pipx
+sudo python3 -m pip install pipx
+sudo pipx ensurepath --global
+
+# Install venv
+sudo apt-get install -y python3-venv
+
+# Install poetry
+pipx install poetry
+
 # Symlink dotfiles to the root within your workspace
 find $DOTFILES_PATH -type f -path "$DOTFILES_PATH/.*" |
 while read df; do
