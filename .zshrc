@@ -32,4 +32,6 @@ function gh () {
     echo "https://github.com/DataDog/$repo/tree/$commit${$(realpath ${1:-$PWD})#*${repo}}"
 }
 
+export PAGER=
+
 source /home/bits/.config/dogweb.shellrc

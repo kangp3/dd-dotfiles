@@ -13,6 +13,7 @@
 [alias]
 	fgrep = grep -F
 	co = checkout
-	codd = "!git checkout -b peter.kang/$1; #"
+    codd = "!git checkout -b peter.kang/$1; #"
+    com = "!git checkout $(git rev-parse --abbrev-ref origin/HEAD | cut -d'/' -f2); #"
 [safe]
 	directory = *
