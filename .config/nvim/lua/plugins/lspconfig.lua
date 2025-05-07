@@ -137,7 +137,16 @@ return {
           settings = {
           },
         },
-        -- pyright = {},
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = 'basic',
+              },
+              -- pythonPath = 'domains/dashboardsnotebooks_backend/venv/bin/python',
+            },
+          },
+        },
         rust_analyzer = {
           settings = {
             ['rust-analyzer'] = {

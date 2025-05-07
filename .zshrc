@@ -10,6 +10,9 @@ alias vim="nvim"
 alias dds='cd ~/dd/dd-source'
 alias dbb='cd ~/dd/dd-source/domains/dashboardsnotebooks_backend/'
 alias dw='cd ~/dd/dogweb/'
+alias web='cd ~/dd/web-ui/'
+alias attach='tmux attach -t 0'
+alias ddpip='rake python:compile_requirements && rake python:get_deps'
 
 alias dashbooks-staging="kubectl exec --context gizmo.us1.staging.dog --namespace orgstore-dashbooks -it deployment/orgstore-dashbooks-toolbox -- pg-wrap -o dashbooks psql"
 alias dashbooks-us1="kubectl exec --context psyduck.us1.prod.dog --namespace orgstore-dashbooks -it deployment/orgstore-dashbooks-toolbox -- pg-wrap -o dashbooks psql"

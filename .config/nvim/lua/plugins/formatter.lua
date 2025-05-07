@@ -8,7 +8,14 @@ return {{
                 },
                 python = {
                     require("formatter.filetypes.python").ruff,
-                }
+                    require("formatter.filetypes.python").black,
+                },
+                javascript = {
+                    require("formatter.filetypes.javascript").prettierd,
+                },
+                typescript = {
+                    require("formatter.filetypes.typescript").prettierd,
+                },
             }
         }
     end,
