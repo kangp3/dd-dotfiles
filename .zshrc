@@ -1,4 +1,4 @@
-export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 set -o promptsubst
 if [ $(id -u) -ne 0 ]
