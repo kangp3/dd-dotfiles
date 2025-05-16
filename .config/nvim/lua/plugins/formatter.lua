@@ -7,8 +7,19 @@ return {{
                     require("formatter.filetypes.go").gofumpt,
                 },
                 python = {
-                    require("formatter.filetypes.python").ruff,
-                    require("formatter.filetypes.python").black,
+                    function()
+                        return {
+                            exe = "ruff",
+                            args = {
+                                "format",
+                                "-q",
+                                "--line-length", "120",
+                                "--",
+                                "-",
+                            },
+                            stdin = true,
+                        }
+                    end
                 },
                 javascript = {
                     require("formatter.filetypes.javascript").prettierd,
