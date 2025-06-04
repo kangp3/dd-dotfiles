@@ -143,7 +143,7 @@ return {
               analysis = {
                 typeCheckingMode = 'basic',
               },
-              -- pythonPath = 'domains/dashboardsnotebooks_backend/venv/bin/python',
+              pythonPath = 'domains/dashboardsnotebooks_backend/venv/bin/python',
             },
           },
         },
