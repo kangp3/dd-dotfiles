@@ -1,6 +1,7 @@
 [user]
 	email = peter.kang@datadoghq.com
 	name = Peter Kang
+	signingkey = key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOfdp2HBuzxO2HvSGgAzliROIkHEimuX2Tw/NNEdnDVY
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
@@ -18,3 +19,10 @@
 	directory = *
 [pager]
 	log = less -FX
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = dd-gitsign
+	allowedSignersFile = /home/bits/.config/gitsign/allowed-signers
+[commit]
+	gpgsign = true
