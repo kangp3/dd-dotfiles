@@ -8,10 +8,12 @@
 	insteadOf = git://github.com/
 [core]
 	editor = nvim
+	untrackedCache = true
+	fsmonitor = true
 [include]
 	path = /Users/peter.kang/.config/gitsign/gitconfig
 [alias]
-	fgrep = grep -F
+	fgrep = grep -F --color
 	co = checkout
     codd = "!git checkout -b peter.kang/$1; #"
     com = "!git checkout $(git rev-parse --abbrev-ref origin/HEAD | cut -d'/' -f2); #"

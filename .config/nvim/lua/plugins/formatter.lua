@@ -27,6 +27,19 @@ return {{
                 typescript = {
                     require("formatter.filetypes.typescript").prettierd,
                 },
+                yaml = {
+                    function()
+                        return {
+                            exe = "yamlfmt",
+                            args = {
+                                "-formatter",
+                                "max_line_length=120",
+                                "-in",
+                            },
+                            stdin = true,
+                        }
+                    end
+                },
             }
         }
     end,

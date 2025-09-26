@@ -143,7 +143,9 @@ return {
               analysis = {
                 typeCheckingMode = 'basic',
               },
-              pythonPath = 'domains/dashboardsnotebooks_backend/venv/bin/python',
+              venvPath = '/home/bits/go/src/github.com/DataDog/dogweb/venv3/bin/python',
+              venv = 'venv3',
+              -- pythonPath = 'domains/dashboardsnotebooks_backend/venv/bin/python',
             },
           },
         },

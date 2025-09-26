@@ -12,6 +12,7 @@ then
         elif [[ ${PWD#*/experimental} != $PWD ]]; then echo EXP${PWD#*/experimental}
         elif [[ ${PWD#*/k8s-resources} != $PWD ]]; then echo K8S${PWD#*/k8s-resources}
         elif [[ ${PWD#*/terraform-config} != $PWD ]]; then echo TF${PWD#*/terraform-config}
+        elif [[ ${PWD#*/datadog-api-spec} != $PWD ]]; then echo DOC${PWD#*/datadog-api-spec}
         else echo %~; fi
     ) %F{red}$ %b%F{reset}'
 fi
@@ -21,6 +22,7 @@ alias dds='cd ~/dd/dd-source'
 alias dbb='cd ~/dd/dd-source/domains/dashboardsnotebooks_backend/'
 alias dw='cd ~/dd/dogweb/'
 alias web='cd ~/dd/web-ui/'
+alias doc='cd ~/dd/datadog-api-spec/'
 alias attach="tmux setenv SSH_AUTH_SOCK $SSH_AUTH_SOCK; tmux attach -t 0"
 alias fixssh='eval $(tmux show-env | grep SSH_AUTH)'
 alias ddpip='rake python:compile_requirements && rake python:get_deps'
