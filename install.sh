@@ -41,3 +41,6 @@ while read df; do
   mkdir -p "$(dirname "$link")"
   ln -sf "$df" "$link"
 done
+
+# Install crontab
+crontab $DOTFILES_PATH/crontab

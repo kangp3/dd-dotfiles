@@ -1,0 +1,5 @@
+# Sync main branches daily at 4AM EDT
+0 8 * * * /home/bits/dotfiles/sync-git-repo.sh dd-source main >> /tmp/sync-dd-source.log 2>&1
+0 8 * * * /home/bits/dotfiles/sync-git-repo.sh dogweb prod >> /tmp/sync-dogweb.log 2>&1
+0 8 * * * /home/bits/dotfiles/sync-git-repo.sh web-ui preprod >> /tmp/sync-web-ui.log 2>&1
+0 8 * * * /home/bits/dotfiles/sync-git-repo.sh k8s-resources master >> /tmp/sync-k8s-resources.log 2>&1
