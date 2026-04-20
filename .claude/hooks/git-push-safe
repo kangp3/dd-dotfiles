@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Safe git push: flags only — no explicit remote or branch allowed
+for arg in "$@"; do
+    if [[ "$arg" != -* ]]; then
+        echo "Error: explicit remote/branch '${arg}' not allowed. Use 'git push' without specifying remote or branch." >&2
+        exit 1
+    fi
+done
+exec git push "$@"

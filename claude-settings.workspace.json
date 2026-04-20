@@ -1,0 +1,195 @@
+{
+  "apiKeyHelper": "workspaces secrets get ANTHROPIC_APIKEY1",
+  "env": {
+    "DISABLE_AUTOUPDATER": "1",
+    "MCP_TIMEOUT": "60000"
+  },
+  "permissions": {
+    "allow": [
+      "Read(~/dd/**)",
+      "Read(~/dd/claude-worktrees/**)",
+      "Write(~/dd/claude-worktrees/**)",
+      "Edit(~/dd/claude-worktrees/**)",
+      "Read(/tmp)",
+      "Write(/tmp)",
+      "Edit(/tmp)",
+      "Bash(BZL_TEST_RESULTS_VIEWER_ENABLED=true bzl test:*)",
+      "Bash(awk:*)",
+      "Bash(bzl query:*)",
+      "Bash(bzl run:*)",
+      "Bash(bzl test:*)",
+      "Bash(cat:*)",
+      "Bash(claude plugin --help:*)",
+      "Bash(claude plugin list:*)",
+      "Bash(claude plugin marketplace list:*)",
+      "Bash(find:*)",
+      "Bash(gh api:*)",
+      "Bash(gh issue view:*)",
+      "Bash(gh pr checks:*)",
+      "Bash(gh pr diff:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh search:*)",
+      "Bash(git add:*)",
+      "Bash(git branch:*)",
+      "Bash(git commit:*)",
+      "Bash(git diff:*)",
+      "Bash(git grep:*)",
+      "Bash(git log:*)",
+      "Bash(git remote:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git show:*)",
+      "Bash(git status:*)",
+      "Bash(go test:*)",
+      "Bash(grep:*)",
+      "Bash(jq:*)",
+      "Bash(ls:*)",
+      "Bash(rapid run:*)",
+      "Bash(rapid td:*)",
+      "Bash(ruff check:*)",
+      "Bash(ruff format:*)",
+      "Bash(tee:*)",
+      "Bash(wc:*)",
+      "Bash(xargs -I {} git show --stat {})",
+      "Bash(~/.claude/hooks/notify-slack.sh:*)",
+      "Bash(~/.claude/hooks/git-push-safe:*)",
+      "Bash(~/.claude/hooks/safe_sed:*)",
+      "Bash(~/.claude/skills/ci-doctor/gitlab-ci.sh:*)",
+      "Bash(~/.claude/skills/pr-followup/fetch-prs:*)",
+      "Bash(~/.claude/worktree-scripts/claude-worktree create:*)",
+      "Bash(~/.claude/worktree-scripts/claude-worktree list:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:marshmallow.readthedocs.io)",
+      "mcp__atlassian__createJiraIssue",
+      "mcp__atlassian__fetch",
+      "mcp__atlassian__getAccessibleAtlassianResources",
+      "mcp__atlassian__getConfluencePage",
+      "mcp__atlassian__getConfluenceSpaces",
+      "mcp__atlassian__getJiraIssue",
+      "mcp__atlassian__getPagesInConfluenceSpace",
+      "mcp__atlassian__search",
+      "mcp__atlassian__searchConfluenceUsingCql",
+      "mcp__atlassian__searchJiraIssuesUsingJql",
+      "mcp__datadog-ddstaging__search_datadog_logs",
+      "mcp__datadog__search_datadog_logs",
+      "mcp__datadog__search_datadog_monitors",
+      "mcp__plugin_slack_slack__slack_read_thread",
+      "mcp__plugin_slack_slack__slack_read_channel",
+      "Skill(dd:fetch-ci-results)",
+      "Skill(dd:git:commit:quick)",
+      "Skill(superpowers:brainstorming)",
+      "Skill(superpowers:writing-plans)",
+      "Skill(superpowers:writing-skills)"
+    ],
+    "defaultMode": "plan",
+    "additionalDirectories": [
+      "~/dd/dd-source",
+      "~/dd/claude-worktrees",
+      "~/.claude"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/bash-guard.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/dd/dd-source/domains/notebooks/.claude/skills/sync-skills/sync-claude-skills.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-slack-hook.sh",
+            "timeout": 30,
+            "async": true
+          }
+        ]
+      },
+      {
+        "matcher": "elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-slack-hook.sh",
+            "timeout": 30,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-slack-hook.sh",
+            "timeout": 30,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-slack-hook.sh",
+            "timeout": 30,
+            "async": true
+          }
+        ]
+      }
+    ],
+    "TaskCompleted": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/notify-slack-hook.sh",
+            "timeout": 30,
+            "async": true
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "pyright-lsp@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "nb@notebooks-team": true,
+    "trajectory-capture@trajectory-cc-plugin": true,
+    "trajectory-visualize@trajectory-cc-plugin": true,
+    "slack@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "trajectory-cc-plugin": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/DataDog/trajectory-cc-plugin.git"
+      }
+    }
+  },
+  "skipAutoPermissionPrompt": true
+}

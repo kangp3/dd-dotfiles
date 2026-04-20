@@ -75,4 +75,4 @@ function gh () {
 
 export PAGER=
 
-source /home/bits/.config/dogweb.shellrc
+[[ -f /home/bits/.config/dogweb.shellrc ]] && source /home/bits/.config/dogweb.shellrc

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Read-only sed wrapper — hardcodes -n, accepts no flags.
+# Usage: safe_sed 'script' [file...]
+# Example: safe_sed '875,900p' /path/to/file
+#          safe_sed '/pattern/p' /path/to/file
+
+for arg in "$@"; do
+    if [[ "$arg" == -* ]]; then
+        echo "Error: safe_sed does not accept flags. Provide only a sed script and file path(s)." >&2
+        exit 1
+    fi
+done
+
+exec sed -n "$@"
