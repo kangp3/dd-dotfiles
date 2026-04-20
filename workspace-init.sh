@@ -18,12 +18,16 @@ echo "=== Claude Code workspace init ==="
 cp "$DOTFILES/claude-settings.workspace.json" "$HOME/.claude/settings.json"
 echo "✓ Wrote ~/.claude/settings.json"
 
-# 2. Install Claude plugins.
-#    All marketplace sources are now registered in settings.json (written above).
+# 2. Register marketplaces and install plugins.
+#    claude plugin marketplace add is the imperative CLI — extraKnownMarketplaces
+#    in settings.json affects enabledPlugins but not `marketplace list` discovery.
+echo "Adding marketplaces..."
+claude plugin marketplace add https://github.com/obra/superpowers || true
+claude plugin marketplace add https://github.com/DataDog/trajectory-cc-plugin || true
+
 echo "Installing plugins..."
 claude plugin install superpowers@superpowers-dev || true
 claude plugin install trajectory-capture@trajectory-cc-plugin || true
-claude plugin install trajectory-visualize@trajectory-cc-plugin || true
 echo "✓ Plugins installed"
 
 # 3. Ensure hooks are executable.
