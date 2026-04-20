@@ -23,19 +23,23 @@ curl -LO https://github.com/neovim/neovim-releases/releases/download/v0.11.1/nvi
 sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 
-# Install pipx
-sudo python3 -m pip install pipx
-sudo pipx ensurepath --global
+# Install pipx (skip if already present)
+if ! command -v pipx >/dev/null 2>&1; then
+  sudo python3 -m pip install pipx
+  sudo pipx ensurepath --global
+fi
 
-# Install venv
-sudo apt-get update
-sudo apt-get install -y python3-venv
+# Install venv (skip if already present)
+if ! python3 -m venv --help >/dev/null 2>&1; then
+  sudo apt-get update
+  sudo apt-get install -y python3-venv
+fi
 
-# Install poetry
-pipx install poetry
+# Install poetry (skip if already present — devcontainer may provide it)
+command -v poetry >/dev/null 2>&1 || pipx install poetry
 
-# Install ruff (Python linter/formatter used by Claude Code)
-pipx install ruff
+# Install ruff (skip if already present)
+command -v ruff >/dev/null 2>&1 || pipx install ruff
 
 # Symlink dotfiles to the root within your workspace
 find $DOTFILES_PATH -type f -path "$DOTFILES_PATH/.*" |
