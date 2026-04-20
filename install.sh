@@ -27,12 +27,17 @@ sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 # Installs user-local to avoid root permission issues with system pipx
 command -v ruff >/dev/null 2>&1 || pip3 install --user ruff
 
-# Symlink dotfiles to the root within your workspace
+# Symlink dotfiles to the root within your workspace.
+# .gitconfig is copied (not symlinked) so git can write maintenance config to it.
 find $DOTFILES_PATH -type f -path "$DOTFILES_PATH/.*" |
 while read df; do
   link=${df/$DOTFILES_PATH/$HOME}
   mkdir -p "$(dirname "$link")"
-  ln -sf "$df" "$link"
+  if [[ "$(basename "$df")" == ".gitconfig" ]]; then
+    cp "$df" "$link"
+  else
+    ln -sf "$df" "$link"
+  fi
 done
 
 # Install crontab
