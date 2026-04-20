@@ -19,12 +19,9 @@ cp "$DOTFILES/claude-settings.workspace.json" "$HOME/.claude/settings.json"
 echo "✓ Wrote ~/.claude/settings.json"
 
 # 2. Install Claude plugins.
-#    The trajectory plugin needs its marketplace registered first — that's now in settings.json.
+#    All marketplace sources are now registered in settings.json (written above).
 echo "Installing plugins..."
-claude plugin install superpowers@claude-plugins-official || true
-claude plugin install nb@notebooks-team || true
-claude plugin install slack@claude-plugins-official || true
-claude plugin install pyright-lsp@claude-plugins-official || true
+claude plugin install superpowers@superpowers-dev || true
 claude plugin install trajectory-capture@trajectory-cc-plugin || true
 claude plugin install trajectory-visualize@trajectory-cc-plugin || true
 echo "✓ Plugins installed"

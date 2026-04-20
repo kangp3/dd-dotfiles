@@ -1,5 +1,5 @@
 {
-  "apiKeyHelper": "workspaces secrets get ANTHROPIC_APIKEY1",
+  "apiKeyHelper": "workspace_secret ANTHROPIC_APIKEY1",
   "env": {
     "DISABLE_AUTOUPDATER": "1",
     "MCP_TIMEOUT": "60000"
@@ -176,14 +176,23 @@
     ]
   },
   "enabledPlugins": {
-    "pyright-lsp@claude-plugins-official": true,
-    "superpowers@claude-plugins-official": true,
-    "nb@notebooks-team": true,
+    "superpowers@superpowers-dev": true,
     "trajectory-capture@trajectory-cc-plugin": true,
-    "trajectory-visualize@trajectory-cc-plugin": true,
-    "slack@claude-plugins-official": true
+    "trajectory-visualize@trajectory-cc-plugin": true
   },
   "extraKnownMarketplaces": {
+    "datadog": {
+      "source": {
+        "source": "github",
+        "repo": "DataDog/claude-marketplace"
+      }
+    },
+    "superpowers-dev": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/obra/superpowers.git"
+      }
+    },
     "trajectory-cc-plugin": {
       "source": {
         "source": "git",
