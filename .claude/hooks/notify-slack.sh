@@ -9,10 +9,19 @@ if [ -z "$MESSAGE" ]; then
   exit 1
 fi
 
-# Generate fresh API credentials
-dd-auth --domain=app.datadoghq.com -o --actions-api > /tmp/dd_keys_slack.txt
-DD_API_KEY=$(grep DD_API_KEY /tmp/dd_keys_slack.txt | cut -d= -f2)
-DD_APP_KEY=$(grep DD_APP_KEY /tmp/dd_keys_slack.txt | cut -d= -f2)
+# Use DD API/App keys provisioned by laptop-setup.sh via `dd-auth --workspace`.
+# In workspaces they're exported by ~/.zshrc from encrypted pass store files.
+# On macOS, dd-auth can generate them on demand if env vars aren't set.
+if [ -z "${DD_API_KEY:-}" ] || [ -z "${DD_APP_KEY:-}" ]; then
+  if command -v dd-auth >/dev/null 2>&1; then
+    dd-auth --domain=app.datadoghq.com -o --actions-api > /tmp/dd_keys_slack.txt
+    DD_API_KEY=$(grep DD_API_KEY /tmp/dd_keys_slack.txt | cut -d= -f2)
+    DD_APP_KEY=$(grep DD_APP_KEY /tmp/dd_keys_slack.txt | cut -d= -f2)
+  else
+    echo "⚠️ DD_API_KEY/DD_APP_KEY not set and dd-auth not found. Run laptop-setup.sh <name> from your laptop."
+    exit 1
+  fi
+fi
 
 # Send notification and capture both response body and HTTP status
 RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST \
