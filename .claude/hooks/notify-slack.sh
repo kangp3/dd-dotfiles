@@ -12,13 +12,21 @@ fi
 # Use DD API/App keys provisioned by laptop-setup.sh via `dd-auth --workspace`.
 # In workspaces they're exported by ~/.zshrc from encrypted pass store files.
 # On macOS, dd-auth can generate them on demand if env vars aren't set.
+# Keys may not be in the environment in non-interactive shells (e.g. hooks),
+# even if ~/.zshrc has the pass show export. Try loading them explicitly.
+if [ -z "${DD_API_KEY:-}" ] || [ -z "${DD_APP_KEY:-}" ]; then
+  if command -v pass >/dev/null 2>&1; then
+    DD_API_KEY=$(pass show Datadog/app.datadoghq.com_api-key 2>/dev/null || true)
+    DD_APP_KEY=$(pass show Datadog/app.datadoghq.com_app-key 2>/dev/null || true)
+  fi
+fi
 if [ -z "${DD_API_KEY:-}" ] || [ -z "${DD_APP_KEY:-}" ]; then
   if command -v dd-auth >/dev/null 2>&1; then
     dd-auth --domain=app.datadoghq.com -o --actions-api > /tmp/dd_keys_slack.txt
     DD_API_KEY=$(grep DD_API_KEY /tmp/dd_keys_slack.txt | cut -d= -f2)
     DD_APP_KEY=$(grep DD_APP_KEY /tmp/dd_keys_slack.txt | cut -d= -f2)
   else
-    echo "⚠️ DD_API_KEY/DD_APP_KEY not set and dd-auth not found. Run laptop-setup.sh <name> from your laptop."
+    echo "⚠️ DD_API_KEY/DD_APP_KEY not set. Run: laptop-setup.sh <workspace-name> from your laptop."
     exit 1
   fi
 fi
